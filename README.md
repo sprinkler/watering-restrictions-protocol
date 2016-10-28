@@ -13,6 +13,7 @@ Authored By: Nicu Pavel Revision 01a
 |----------------|---------|---------|-------|
 | 09-14-2016 | 01 | Original document created | Nicu Pavel |
 | 09-19-2016 |01a | Revisions for clarity | Andrei B |
+| 10-29-2016 |01b | Added javascript example, markdown formatting | Nicu Pavel |
 
 
 
@@ -133,16 +134,16 @@ This code resides on the use machine (e.g Rainmachine) or cloud side server.
 
 ### Python: 
     
-    https://raw.githubusercontent.com/sprinkler/watering-restrictions-protocol/master/python/parse.py
+https://raw.githubusercontent.com/sprinkler/watering-restrictions-protocol/master/python/parse.py
     
 ### Javascript: 
  
-    https://raw.githubusercontent.com/sprinkler/watering-restrictions-protocol/master/js/parser/parser.html
+https://raw.githubusercontent.com/sprinkler/watering-restrictions-protocol/master/js/parser/parser.html
 
 
 ## Protocol JSON Example  
 
-     https://raw.githubusercontent.com/sprinkler/watering-restrictions-protocol/master/restrictions.json
+https://raw.githubusercontent.com/sprinkler/watering-restrictions-protocol/master/restrictions.json
 
 
 
