@@ -5,17 +5,18 @@
 import urllib2, urllib, json
 from pprint import pprint
 
-u = urllib2.urlopen(url="http://assets.austintexas.gov/water/includes/austin_water_auto_irrigation_rules.json", timeout=10)
-data = json.loads(u.read())
+#u = urllib2.urlopen(url="https://raw.githubusercontent.com/sprinkler/watering-restrictions-protocol/master/restrictions.json", timeout=10)
+#data = json.loads(u.read())
 
-#with open("/tmp/austin_water_auto_irrigation_rules.json", "r") as f:
-#    data = json.loads(f.read())
+with open("../restrictions.json", "r") as f:
+    data = json.loads(f.read())
 
 houseNumber = 33
 restrictionsPerDay = {}
 
 stage = data["current"]
 print "Current stage: %s" % data["stages"][stage]
+print "Water company statistics URL: %s" % data["statisticsURL"]
 
 #propertyType = "residential" # commercial, school
 for propertyType in data["types"]:
@@ -32,6 +33,8 @@ for propertyType in data["types"]:
         interval = r["interval"]
 
         print "\tYou can water %d times per week (every %d days)." % (nrDays, interval)
+        print "\tApplies to irrigation types: ",
+        print [data["irrigationSystems"][x] for x in r["irrigation"]]
         print "\tAllowed days: %s:" % allowedDays,
         print [data["days"][x] for x in allowedDays]
         print "\tAllowed hours: "
