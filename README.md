@@ -137,8 +137,8 @@ This code resides on the use machine (e.g Rainmachine) or cloud side server.
 https://raw.githubusercontent.com/sprinkler/watering-restrictions-protocol/master/python/parse.py
     
 ### Javascript: 
- 
-https://raw.githubusercontent.com/sprinkler/watering-restrictions-protocol/master/js/parser/
+
+https://github.com/sprinkler/watering-restrictions-protocol/tree/master/js/parser
 
 
 ## Protocol JSON Example  
