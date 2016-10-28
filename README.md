@@ -138,7 +138,7 @@ https://raw.githubusercontent.com/sprinkler/watering-restrictions-protocol/maste
     
 ### Javascript: 
  
-https://raw.githubusercontent.com/sprinkler/watering-restrictions-protocol/master/js/parser/parser.html
+https://raw.githubusercontent.com/sprinkler/watering-restrictions-protocol/master/js/parser/
 
 
 ## Protocol JSON Example  
