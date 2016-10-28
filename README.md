@@ -1,49 +1,34 @@
 
 
-
-Watering Restrictions Protocol
-
-
-Revision 01a
-Authored By: Nicu Pavel
+#Watering Restrictions Protocol
 
 
+Authored By: Nicu Pavel Revision 01a 
 
-1. Revisions Changelog
+
+## Revisions Changelog
 
 
-Date of Change
-Version
-Changes
-Editor
-09-14-2016
-01
-Original document created
-Nicu Pavel
-09-19-2016
-01a
-Revisions for clarity
-Andrei B
+| Date of Change | Version | Changes | Editor|
+|----------------|---------|---------|-------|
+| 09-14-2016 | 01 | Original document created | Nicu Pavel |
+| 09-19-2016 |01a | Revisions for clarity | Andrei B |
 
 
 
-
- 2. Description
+## Description
 With the advent of smart irrigation controllers a specific M2M data interchange format is needed to standardise the definition of watering restrictions defined by Water Companies, municipalities or other residential area governing committees all over the world. This format can be openly used by smart controllers to automatically create watering restrictions or inform the user about the current restrictions.
 
 
- 3. Acknowledgements
+## Acknowledgements
 This protocol definition is based on an existing definition that was created by Austin Water Company. The current definitions only adds more information to this format, leaving full compatibility with original format.
 
 
- 4. Technology
+## Technology
 The protocol is described using JSON an open-standard format that widely used by developers and web service providers.
 
 
-
-
-
-5. Protocol Overview
+## Protocol Overview
 The protocol specifies a list of rules which define when watering is allowed. Each rule belongs to a certain watering conservation stage and certain customer/property types (residential, commercial, school). Each rule defines a time interval, for a list of week days and the irrigation system type (sprinkler, drip) that it applies. The basic format without any data looks like below:
 
 
@@ -74,27 +59,25 @@ The protocol specifies a list of rules which define when watering is allowed. Ea
 Basic JSON format without any rules defined
 
 
+## Protocol Structure Components
+ 
+- "stages" is an ARRAY of STRINGs which match the water restriction stage names. The order of the STRINGs in the ARRAY is important. See the "rules" definition for usage.
+  
+- "types" is an ARRAY of STRINGs which match the customer / property types distinguished in the restrictions. The order of the STRINGs in the ARRAY is important. See the "rules" definition for usage.
 
 
-6. Protocol Structure Components
-  
-  "stages" is an ARRAY of STRINGs which match the water restriction stage names. The order of the STRINGs in the ARRAY is important. See the "rules" definition for usage.
-  
-  "types" is an ARRAY of STRINGs which match the customer / property types distinguished in the restrictions. The order of the STRINGs in the ARRAY is important. See the "rules" definition for usage.
+- “irrigationSystems” is an ARRAY of STRINGS which match the types of irrigation used by “rules” definition
 
 
-“irrigationSystems” is an ARRAY of STRINGS which match the types of irrigation used by “rules” definition
-
-
-“statisticsURL” specifies a URL on which the smart controller watering statistics can be sent to be analysed. Each smart controller can automatically send this statistics if user chooses so.
+- “statisticsURL” specifies a URL on which the smart controller watering statistics can be sent to be analysed. Each smart controller can automatically send this statistics if user chooses so.
   
-  "days" is an ARRAY of STRINGs containing the days of the week in the required order. The order of the STRINGs in the ARRAY is important.  See the "rules" definition for usage.
+- "days" is an ARRAY of STRINGs containing the days of the week in the required order. The order of the STRINGs in the ARRAY is important.  See the "rules" definition for usage.
   
-  "current" is a NUMBER which specifies the current water restriction stage. The value is the specified index in the "stages" ARRAY.
+- "current" is a NUMBER which specifies the current water restriction stage. The value is the specified index in the "stages" ARRAY.
   
-  "effective" is a STRING containing the effective date / time, in ISO 8601 format, of the current water restriction stage.
+- "effective" is a STRING containing the effective date / time, in ISO 8601 format, of the current water restriction stage.
   
-  "rules" is an ARRAY containing rules for each possible water restriction stage. Each item in the ARRAY references a particular stage.
+- "rules" is an ARRAY containing rules for each possible water restriction stage. Each item in the ARRAY references a particular stage.
     The index of the item (stage) in this array corresponds to the index in the "stages" ARRAY. Below is a further description of an item in the "rules" ARRAY, referenced as rules[stage index].
 
 
@@ -144,7 +127,7 @@ Each rules[stage index][type index][rule index] OBJECT has the following structu
 
 
 
-7. Example protocol parsing code (client side).
+## Example protocol parsing code (client side).
 This code resides on the use machine (e.g Rainmachine) or cloud side server. 
 
 
@@ -152,7 +135,7 @@ Python: https://gist.github.com/sprinkler/a00ac0860fcb5248c3ef8cd3d515ddfd
 Javascript: TBD 
 
 
-8. Protocol JSON Example  
+## Protocol JSON Example  
 
 
         {
