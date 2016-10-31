@@ -101,14 +101,13 @@ The basic format without any data looks like below:
     - "**to**" is a NUMBER in unix timestamp format that specifies the ending date/time for alert validity
     - "**message**" the alert message to be displayed to customers
          
-
-        [
-            { 
-                from: 1477949811,
-                to: 1477954811,
-                message: "alert message"
-                },
-        ]
+            [
+                { 
+                    from: 1477949811,
+                    to: 1477954811,
+                    message: "alert message"
+                    },
+            ]
   
 *Alerts: Basic JSON format*
 
