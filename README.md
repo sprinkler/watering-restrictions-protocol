@@ -3,7 +3,7 @@
 #Watering Restrictions Protocol
 
 
-Authored By: Nicu Pavel Revision 01a 
+Authored By: Nicu Pavel Revision 01c 
 
 
 ## Revisions Changelog
@@ -14,7 +14,7 @@ Authored By: Nicu Pavel Revision 01a
 | 09-14-2016 | 01 | Original document created | Nicu Pavel |
 | 09-19-2016 |01a | Revisions for clarity | Andrei B |
 | 10-29-2016 |01b | Added javascript example, markdown formatting | Nicu Pavel |
-
+| 10-31-2016 |01c | Added company details, alerts | Nicu Pavel |
 
 
 ## Description
@@ -26,17 +26,29 @@ This protocol definition is based on an existing definition that was created by 
 
 
 ## Technology
-The protocol is described using JSON an open-standard format that widely used by developers and web service providers.
+The protocol is described using JSON an open-standard format widely used by developers and web service providers.
 
 
 ## Protocol Overview
-The protocol specifies a list of rules which define when watering is allowed. Each rule belongs to a certain watering conservation stage and certain customer/property types (**residential**, **commercial**, **school**). Each rule defines a time interval, for a list of week days and the irrigation system type (**sprinkler**, **drip**) that it applies to. The basic format without any data looks like below:
+The protocol specifies a list of rules which define when watering is allowed. Each rule belongs to a certain watering conservation stage and certain customer/property types (**residential**, **commercial**, **school**). Each rule defines a time interval, for a list of week days and the irrigation system type (**sprinkler**, **drip**) that it applies to.
+The basic format without any data looks like below:
 
 
     {
+      "company": {
+      	"name": "Water Company",
+      	"phone": "+33 22 1234 5678",
+      	"country": "US",
+      	"state": "CA",
+      	"geoarea": [
+      	    {lat: 25.774, lng: -80.190},
+            {lat: 18.466, lng: -66.118},
+            {lat: 32.321, lng: -64.757}
+      	],
+      },
       “stages": [“1”, “2”, “3”, “4”],
       “effective”: “2016-05-17T00:00:00-06:00”
-      “Current": 0,
+      “current": 0,
       “types”:[
         “residential”,
         “commercial”,
@@ -54,12 +66,22 @@ The protocol specifies a list of rules which define when watering is allowed. Ea
         “Saturday”
       ],
       “rules”:[],
+      "alerts": []
     }
 *Basic JSON format without any rules defined*
 
 
 ## Protocol Structure Components
- 
+
+- "**company**" is an OBJECT that describes company details and locations:
+   - "**name**" is a STRING representing company name.
+   - "**phone**" is a STRING representing company phone number in [E.123] (https://en.wikipedia.org/wiki/E.123) international notation (+COUNTRY_CODE AREA_CODE NUMBER).
+   - "**country**" is a STRING representing company country in [ISO 3166-1 Alpha 2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
+   - "**state**" is a STRING representing company state in abbreviated format
+   - "**geoarea**" *(optional)* is an ARRAY of OBJECTS that defines the land area for which the water company provides services. Each OBJECT from ARRAY defines a point of a polygon defining the area by latitude and longitude.
+     If defined there should be at least 3 point (OBJECTS) to be considered valid.
+      
+     
 - "**stages**" is an ARRAY of STRINGs which match the water restriction stage names. The order of the STRINGs in the ARRAY is important. See the "rules" definition for usage.
   
 - "**types**" is an ARRAY of STRINGs which match the customer / property types distinguished in the restrictions. The order of the STRINGs in the ARRAY is important. See the "rules" definition for usage.
@@ -73,11 +95,26 @@ The protocol specifies a list of rules which define when watering is allowed. Ea
 - "**current**" is a NUMBER which specifies the current water restriction stage. The value is the specified index in the "stages" ARRAY.
   
 - "**effective**" is a STRING containing the effective start date / time, in ISO 8601 format, of the current water restriction stage.
+- "**alerts**" is an ARRAY containing watering conservation alerts or other information to be sent to customers.
+
+    - "**from**" is a NUMBER in unix timestamp format that specifies the starting date/time for alert validity
+    - "**to**" is a NUMBER in unix timestamp format that specifies the ending date/time for alert validity
+    - "**message**" the alert message to be displayed to customers
+         
+
+        [
+            { 
+                from: 1477949811,
+                to: 1477954811,
+                message: "alert message"
+                },
+        ]
   
+*Alerts: Basic JSON format*
+
+        
 - "**rules**" is an ARRAY containing rules for each possible water restriction stage. Each item in the ARRAY references a particular stage.
     The index of the item (**stage**) in this array corresponds to the index in the "**stages**" ARRAY. Below is a further description of an item in the "**rules**" ARRAY, referenced as *rules[stage index]*.
-
-
 
 
         {
@@ -97,7 +134,7 @@ The protocol specifies a list of rules which define when watering is allowed. Ea
         “irrigation”: [0],
         },
 
-*RULE: Basic JSON format*
+*Rule: Basic JSON format*
 
     
 Each *rules[stage index]* is an ARRAY containing rules for each customer / property type within a **stage**. Each item in the ARRAY references a particular type. The index of the item (type) in this array corresponds to the index in the "**types**" ARRAY. Below is a further description of an item in the *rules[stage index]* ARRAY, referenced as **rules[stage index][type index]**.
@@ -107,7 +144,8 @@ Each *rules[stage index][type index]* is an ARRAY of OBJECTs containing rules fo
 Each *rules[stage index][type index][rule index]* OBJECT has the following structure:
 
 
-- “**irrigation**” is an ARRAY of NUMBERs which specifies the indexes in the irrigationSystems array. It denotes for which type of irrigation system this rule applies.
+- “**irrigation**” is an ARRAY of NUMBERs which specifies the indexes in the irrigationSystems array. It denotes for which category of irrigation system this rule applies. Note that the *sprinkler* category refers to multiple types of sprinkler heads 
+like: rotary nozzle, rotors, sprays and *drip* refers to: drip, bubblers, soaker hose etc.
 
 - "**interval**" is a NUMBER which specifies the number of days in the watering interval or period. For example, a value of 7 would mean  that watering is allowed weekly according to the watering rules. A value of 0 (zero) would mean that watering is not allowed. See  the "**day**" definition for a description of what days of the week are valid to water in the interval.
 
