@@ -79,7 +79,7 @@ The basic format without any data looks like below:
    - "**country**" is a STRING representing company country in [ISO 3166-1 Alpha 2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format.
    - "**state**" is a STRING representing company state in abbreviated format
    - "**geoarea**" *(optional)* is an ARRAY of OBJECTS that defines the land area for which the water company provides services. Each OBJECT from ARRAY defines a point of a polygon defining the area by latitude and longitude.
-     If defined there should be at least 3 point (OBJECTS) to be considered valid.
+     If defined there should be at least 3 point (OBJECTS) to be considered valid. Smart controllers can automatically enable restrictions if their location is whitin the specified polygon.
       
      
 - "**stages**" is an ARRAY of STRINGs which match the water restriction stage names. The order of the STRINGs in the ARRAY is important. See the "rules" definition for usage.
