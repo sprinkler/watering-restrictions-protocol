@@ -7,7 +7,7 @@ Authored By: Nicu Pavel Revision 01d
 
 **Table of Contents** 
 
-- [Revisions Changelog](#Revisions Changelog)
+- [Revisions Changelog](#Revisions-Changelog)
 - [Description](#Description)
 - [Acknowledgements](#Acknowledgements)
 - [Technology](#Technology)
@@ -31,7 +31,8 @@ Authored By: Nicu Pavel Revision 01d
 | 11-01-2016 |01d | Added recommandations | Nicu Pavel |
 
 
-## Description
+Description
+------------
 With the advent of smart irrigation controllers a specific M2M data interchange format is needed to standardise the definition of watering restrictions defined by Water Companies, municipalities or other residential area governing committees all over the world. This format can be openly used by smart controllers to automatically create watering restrictions or inform the user about the current restrictions.
 
 
