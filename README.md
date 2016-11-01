@@ -7,17 +7,16 @@ Authored By: Nicu Pavel Revision 01d
 
 **Table of Contents** 
 
-- [Watering Restrictions Protocol](#)
-	- [Revisions Changelog](#)
-	- [Description](#)
-	- [Acknowledgements](#)
-	- [Technology](#)
-	- [Protocol Overview](#)
-	- [Protocol Structure Components](#)
-	- [Example protocol parsing code (client side).](#)
-		- [Python:](#)
-		- [Javascript:](#)
-	- [Protocol JSON Example](#)
+- [Revisions Changelog](#Revisions Changelog)
+- [Description](#Description)
+- [Acknowledgements](#Acknowledgements)
+- [Technology](#Technology)
+- [Protocol Overview](#Protocol Overview)
+- [Protocol Structure Components](#Protocol Structure Components)
+- [Example protocol parsing code (client side).](#Example protocol parsing code (client side).)
+	- [Python:](#)
+	- [Javascript:](#)
+- [Protocol JSON Example](#Protocol JSON Example)
 
 
 ## Revisions Changelog
