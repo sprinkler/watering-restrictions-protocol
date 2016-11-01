@@ -257,6 +257,7 @@ https://github.com/sprinkler/watering-restrictions-protocol/tree/master/js/parse
 
 
 ## Protocol JSON Example  
+[Tree View](http://www.jsoneditoronline.org/?url=https%3A%2F%2Fraw.githubusercontent.com%2Fsprinkler%2Fwatering-restrictions-protocol%2Fmaster%2Frestrictions.json)
 
-https://raw.githubusercontent.com/sprinkler/watering-restrictions-protocol/master/restrictions.json
+[Raw View](https://raw.githubusercontent.com/sprinkler/watering-restrictions-protocol/master/restrictions.json)
 
