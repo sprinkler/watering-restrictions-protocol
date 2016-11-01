@@ -40,6 +40,7 @@ The basic format without any data looks like below:
       	"phone": "+33 22 1234 5678",
       	"country": "US",
       	"state": "CA",
+        "city": "San Antonio",
       	"geoarea": [
       	    {lat: 25.774, lng: -80.190},
             {lat: 18.466, lng: -66.118},
