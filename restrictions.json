@@ -1,4 +1,16 @@
       {
+        "company": {
+          "name": "Water Company",
+          "phone": "+33 22 1234 5678",
+          "country": "US",
+          "state": "CA",
+          "city": "San Antonio",
+          "geoarea": [
+              {"lat": 25.774, "lng": -80.190},
+              {"lat": 18.466, "lng": -66.118},
+              {"lat": 32.321, "lng": -64.757}
+          ]
+        },
           "stages":[
             "Conservation",
             "Stage 1",
@@ -659,7 +671,62 @@
             "Thursday",
             "Friday",
             "Saturday"
+          ],
+          "alerts": [
+            {
+                "from": 1477949811,
+                "to": 1477954811,
+                "message": "alert message"
+            }
+          ],
+          "recommendations": {
+            "soils": [
+              "ClayLoam",
+              "SiltyClay",
+              "Clay",
+              "Loam",
+              "SandyLoam",
+              "LoamySand",
+              "Sand"
+          ],
+          "emitters": [
+            "PopupSpray",
+            "Rotors",
+            "SurfaceDrip",
+            "Bubblers"
+          ],
+          "vegetations": [
+              "Grass",
+              "FruitTrees",
+              "Flowers",
+              "Vegetables",
+              "Citrus",
+              "Bushes",
+              "Xeriscape"
+          ],
+          "list": [
+            [
+              [
+                 {
+                    "soil": [0, 1],
+                    "emitter": [0],
+                    "vegetation": [0],
+                    "duration": 720,
+                    "frequency": 7
+                  }
+              ],
+              [
+                 {
+                    "soil": [0, 1],
+                    "emitter": [0],
+                    "vegetation": [0],
+                    "duration": 1440,
+                    "frequency": 7
+                  }
+              ]
+            ]
           ]
         }
+      }
 
 
