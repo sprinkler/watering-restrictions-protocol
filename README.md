@@ -3,7 +3,7 @@
 #Watering Restrictions Protocol
 
 
-Authored By: Nicu Pavel Revision 01c 
+Authored By: Nicu Pavel Revision 01d 
 
 
 ## Revisions Changelog
@@ -15,6 +15,7 @@ Authored By: Nicu Pavel Revision 01c
 | 09-19-2016 |01a | Revisions for clarity | Andrei B |
 | 10-29-2016 |01b | Added javascript example, markdown formatting | Nicu Pavel |
 | 10-31-2016 |01c | Added company details, alerts | Nicu Pavel |
+| 11-01-2016 |01d | Added recommandations | Nicu Pavel |
 
 
 ## Description
@@ -67,7 +68,8 @@ The basic format without any data looks like below:
         “Saturday”
       ],
       “rules”:[],
-      "alerts": []
+      "alerts": [],
+      "recommendations":{}
     }
 *Basic JSON format without any rules defined*
 
@@ -96,23 +98,7 @@ The basic format without any data looks like below:
 - "**current**" is a NUMBER which specifies the current water restriction stage. The value is the specified index in the "stages" ARRAY.
   
 - "**effective**" is a STRING containing the effective start date / time, in ISO 8601 format, of the current water restriction stage.
-- "**alerts**" is an ARRAY containing watering conservation alerts or other information to be sent to customers.
-
-    - "**from**" is a NUMBER in unix timestamp format that specifies the starting date/time for alert validity
-    - "**to**" is a NUMBER in unix timestamp format that specifies the ending date/time for alert validity
-    - "**message**" the alert message to be displayed to customers
-         
-            [
-                { 
-                    from: 1477949811,
-                    to: 1477954811,
-                    message: "alert message"
-                    },
-            ]
-  
-*Alerts: Basic JSON format*
-
-        
+       
 - "**rules**" is an ARRAY containing rules for each possible water restriction stage. Each item in the ARRAY references a particular stage.
     The index of the item (**stage**) in this array corresponds to the index in the "**stages**" ARRAY. Below is a further description of an item in the "**rules**" ARRAY, referenced as *rules[stage index]*.
 
@@ -137,7 +123,7 @@ The basic format without any data looks like below:
 *Rule: Basic JSON format*
 
     
-Each *rules[stage index]* is an ARRAY containing rules for each customer / property type within a **stage**. Each item in the ARRAY references a particular type. The index of the item (type) in this array corresponds to the index in the "**types**" ARRAY. Below is a further description of an item in the *rules[stage index]* ARRAY, referenced as **rules[stage index][type index]**.
+Each *rules[stage index]* is an ARRAY containing rules for each customer / property type  (residential, commercial, etc) within a **stage**. Each item in the ARRAY references a particular type. The index of the item (type) in this array corresponds to the index in the "**types**" ARRAY. Below is a further description of an item in the *rules[stage index]* ARRAY, referenced as **rules[stage index][type index]**.
 
 Each *rules[stage index][type index]* is an ARRAY of OBJECTs containing rules for specific address ranges within a customer / property **type** and **stage**. The address ranges are specified as street numbers ending in an odd digit, an even digit, or all street numbers. Below is a further description of an item in the *rules[stage index][type index]* ARRAY, referenced as *rules[stage index][type index][rule index*].
 
@@ -160,7 +146,88 @@ like: rotary nozzle, rotors, sprays and *drip* refers to: drip, bubblers, soaker
   - "**to**" is a STRING which specifies the ending time of the time period using a 24-hour clock. The format of the STRING is the same as "**from**".
 
 
+- "**alerts**" *(optional)* is an ARRAY containing watering conservation alerts or other information to be sent to customers.
 
+    - "**from**" is a NUMBER in unix timestamp format that specifies the starting date/time for alert validity
+    - "**to**" is a NUMBER in unix timestamp format that specifies the ending date/time for alert validity
+    - "**message**" the alert message to be displayed to customers
+         
+            [
+                { 
+                    from: 1477949811,
+                    to: 1477954811,
+                    message: "alert message"
+                    },
+            ]
+  
+*Alerts: Basic JSON format*
+
+- "**recommendations**" *(optional)* is an OBJECT defining soil types, vegetation and emitter type and an ARRAY of recommendations "**list**"
+    -  "**recommendations.soils**": is an ARRAY of STRINGS defining soil types. 
+    -  "**recommendations.emitters**": is an ARRAY of STRINGS defining emitter types.
+    -  "**recommendations.vegetations**": is an ARRAY of STRINGS defining vegetation types.
+    -  "**recommendations.list**": Each item in the ARRAY references a particular stage. The index of the item (**stage**) in this array corresponds to the index in the "**stages**" ARRAY. 
+        - Each *recommendations.list[stage index]* is an ARRAY containing rules for each customer / property type (residential, commercial, etc) within a **stage**. Each item in the ARRAY references a particular type. The index of the item (type) in this array corresponds to the index in the "**types**" ARRAY.
+    
+        - Each *recommendations.list[stage index][type index]* is an ARRAY of OBJECTs containing recommendations for specific soil, emitter and vegetation type within a customer / property **type** and **stage**.
+
+        - Each *recommendations.list[stage index][type index][index]* OBJECT has the following structure:
+            - "**soil**" is an ARRAY of NUMBERS that specify the valid soil types this recommendation applies to, the NUMBER is an index in the "**recommendations.soils**" ARRAY.
+             - "**emitter**" is an ARRAY of NUMBERS that specify the irrigation emitter types this recommendation applies to, the NUMBER is an index in the "**recommendations.emitter**" ARRAY.
+             - "**vegetation**" is an ARRAY of NUMBERS that specify the vegetation types this recommendation applies to, the NUMBER is an index in the "**recommendations.vegetations**" ARRAY.
+             - "**frequency**" is a NUMBER that specify the days interval for which the irrigation should occur.
+             - "**duration**" is a NUMBER that specify the number of seconds that the customer should irrigate the specified vegetation considering the soil and emitter type
+
+                      {
+                      soils: [
+                          "ClayLoam",
+                          "SiltyClay",
+                          "Clay",
+                          "Loam",
+                          "SandyLoam",
+                          "LoamySand",
+                          "Sand"
+                      ],
+                      emitters: [
+                          "PopupSpray",
+                          "Rotors",
+                          "SurfaceDrip",
+                          "Bubblers"
+                      ],
+                      vegetations: [
+                          "Grass",
+                          "FruitTrees",
+                          "Flowers",
+                          "Vegetables",
+                          "Citrus",
+                          "Bushes",
+                          "Xeriscape"
+                      ],
+                      list: [
+                        [
+                          [
+                             { 
+                                soil: [0, 1],
+                                emitter: [0],
+                                vegetation: [0],
+                                duration: 720,
+                                frequency: 7
+                              }
+                          ],
+                          [
+                             { 
+                                soil: [0, 1],
+                                emitter: [0],
+                                vegetation: [0],
+                                duration: 1440,
+                                frequency: 7
+                              }
+                          ]
+                        ]
+                      ]            
+                   }
+
+*Recommandations: Basic JSON format*
 
 ## Example protocol parsing code (client side).
 This code resides on the use machine (e.g [Rainmachine](http://www.rainmachine.com)) or cloud side server. 
