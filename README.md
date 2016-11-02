@@ -28,7 +28,7 @@ Authored By: Nicu Pavel Revision 01d
 | 09-19-2016 |01a | Revisions for clarity | Andrei B |
 | 10-29-2016 |01b | Added javascript example, markdown formatting | Nicu Pavel |
 | 10-31-2016 |01c | Added company details, alerts | Nicu Pavel |
-| 11-01-2016 |01d | Added recommandations | Nicu Pavel |
+| 11-01-2016 |01d | Added recommendations | Nicu Pavel |
 
 
 ## Description
